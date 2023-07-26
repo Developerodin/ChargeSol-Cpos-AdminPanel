@@ -7,7 +7,12 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 import { FriendList } from "./FriendList";
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
-export default function ChargeList() {
+import axios from "axios";
+import { BASE_URL } from "../../../../Config/BaseUrl";
+import UserContext from "../../../../../Context/UserContext";
+export default function ChargeList({setUpdate}) {
+
+  const token =sessionStorage.getItem('token');
   const style = {
     position: "absolute",
     top: "50%",
@@ -26,6 +31,7 @@ export default function ChargeList() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  // const {userData,update,setUpdated}=React.useContext(UserContext)
   const initalValues = {
     ChargerName: "",
     ChargerStation: "",
@@ -44,14 +50,14 @@ export default function ChargeList() {
     FixedCost: "",
     demandFee: "",
     ownership: "",
-    functional: "off",
+    functional: false,
     companyname: "",
     selectPrice: "",
     onboardindDate: "",
     numberOfConnector: "",
     searchComapny: "",
     SelectComapny:"",
-    cpoId:"754832493urjhds"
+    cpoId:"64be3bdad27dbc99fe193cdc"
     // AddClient:""
   };
 
@@ -70,9 +76,22 @@ export default function ChargeList() {
 
   const { values, error, handleChange, handleSubmit } = useFormik({
     initialValues: initalValues,
-    onSubmit: (value, { resetForm }) => {
-      console.log("Charger Values ===>",value);
-      // resetForm();
+    onSubmit: async(values, { resetForm }) => {
+      console.log("Charger Values ===>",values);
+      try{
+          const res = await axios.post(`${BASE_URL}/chargers/addchargers`, 
+          values
+          ,{ headers: { "Authorization": `${token}` } })
+
+          console.log("res cpo add ==>",res)
+      }
+      catch(err){
+         console.log("error in charger adding",err)
+      }
+      
+      resetForm();
+      handleClose();
+      setUpdate((prev)=>prev+1);
     },
   });
 

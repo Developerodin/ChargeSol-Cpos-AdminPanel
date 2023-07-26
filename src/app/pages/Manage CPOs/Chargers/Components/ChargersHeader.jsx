@@ -23,7 +23,7 @@ const MyBox = styled('Button')({
 
 
 
-const ChargersHeader = () => {
+const ChargersHeader = ({state}) => {
   return (
     <KTCard>
         <Box    justifyContent={"space-between"} p={"10px"} display='flex' sx={{display:{xs:"block",sm:"flex",md:"flex",lg:"flex",xl:"flex"}, alignItems:"center"}} >
@@ -92,7 +92,7 @@ const ChargersHeader = () => {
            
                  <Box sx={{ marginLeft:"10px", display:'flex', alignItems:"center"}}>
             <Typography sx={{color:"gray",marginTop:"5px",display:{xs:"none",sm:"none",md:"none",lg:"none",xl:"block"}}}variant="subtitle1" component="h6">Add Charger</Typography>
-            <IconButton  ><ChargeList/></IconButton>
+            <IconButton  ><ChargeList setUpdate={state}/></IconButton>
            
             </Box>
             </Box>

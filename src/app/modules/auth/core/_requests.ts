@@ -6,10 +6,10 @@ const API_URL = process.env.REACT_APP_API_URL
 const token =sessionStorage.getItem('token');
 
 export const GET_USER_BY_ACCESSTOKEN_URL = `${BASE_URL}/verify_token`
-export const LOGIN_URL = `${BASE_URL}/signin`
-export const REGISTER_URL = `${BASE_URL}/signup`
-export const REQUEST_PASSWORD_URL = `${BASE_URL}/forgotPassword`
-export const RESET_PASSWORD_URL = `${BASE_URL}/resetPassword/`
+export const LOGIN_URL = `${BASE_URL}/cpo/signin`
+export const REGISTER_URL = `${BASE_URL}/cpo/signup`
+export const REQUEST_PASSWORD_URL = `${BASE_URL}/cpo/forgotPassword`
+export const RESET_PASSWORD_URL = `${BASE_URL}/cpo/resetPassword/`
 
 // Server should return AuthModel
 export function login(email: string, password: string) {

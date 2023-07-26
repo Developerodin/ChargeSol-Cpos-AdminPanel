@@ -22,7 +22,7 @@ const MyBox = styled('Button')({
   });
 
 
-const StationHeader = () => {
+const StationHeader = ({state}) => {
   return (
     <KTCard>
         <Box    justifyContent={"space-between"} p={"10px"} display='flex' sx={{display:{xs:"block",sm:"flex",md:"flex",lg:"flex",xl:"flex"}, alignItems:"center"}} >
@@ -65,7 +65,7 @@ const StationHeader = () => {
            
                  <Box sx={{ marginLeft:"10px", display:'flex', alignItems:"center"}}>
             <Typography sx={{color:"gray",marginTop:"5px",display:{xs:"none",sm:"none",md:"none",lg:"none",xl:"block"}}}variant="subtitle1" component="h6">Add Station</Typography>
-            <IconButton  ><AddStation/></IconButton>
+            <IconButton  ><AddStation setUpdate={state}/></IconButton>
            
             </Box>
             </Box>
