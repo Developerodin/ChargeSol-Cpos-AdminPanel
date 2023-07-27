@@ -176,7 +176,7 @@ export default function ChargeList({setUpdate}) {
                         <div className="col-12 mb-2">Latitude</div>
                         <div className="col-12">
                           <input
-                            type="text"
+                            type="number"
                             name="Latitude"
                             id="Latitude"
                             onChange={handleChange}
@@ -192,7 +192,7 @@ export default function ChargeList({setUpdate}) {
                         <div className="col-12 mb-2">Longitude</div>
                         <div className="col-12">
                           <input
-                            type="text"
+                            type="number"
                             name="Longitude"
                             id="Longitude"
                             value={values.Longitude}
@@ -382,7 +382,7 @@ export default function ChargeList({setUpdate}) {
                     <div className="col-12 mb-2">Fixed Cost</div>
                     <div className="col-12">
                       <input
-                        type="text"
+                        type="number"
                         name="fixedCost"
                         id="fixedCost"
                         placeholder="FixedCost"
@@ -398,7 +398,7 @@ export default function ChargeList({setUpdate}) {
                     <div className="col-12 mb-2">Demand Fee</div>
                     <div className="col-12">
                       <input
-                        type="text"
+                        type="number"
                         name="demandFee"
                         onChange={handleChange}
                         value={values.demandFee}
@@ -488,7 +488,7 @@ export default function ChargeList({setUpdate}) {
                     <div className="col-12 mb-2">Number Of Connector</div>
                     <div className="col-12">
                       <input
-                        type="text"
+                        type="number"
                         name="numberOfConnector"
                         id="numberOfConnector"
                         placeholder="Number Of Connector"
@@ -557,7 +557,7 @@ export default function ChargeList({setUpdate}) {
                             <div className="col-12">Price</div>
                             <div className="col-12">
                         
-                      <input className="mt-5" type="text" name="ChargerPrice" id="ChargerPrice" value={values.ChargerPrice} onChange={handleChange} style={{maxWidth:"50%"}} />
+                      <input className="mt-5" type="number" name="ChargerPrice" id="ChargerPrice" value={values.ChargerPrice} onChange={handleChange} style={{maxWidth:"50%"}} />
                             </div>
                           </div>
                         </div>
