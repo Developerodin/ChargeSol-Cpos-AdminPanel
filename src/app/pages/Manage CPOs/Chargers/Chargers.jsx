@@ -22,6 +22,7 @@ import { FriendList } from './ClientComponents/FriendList'
 import CloseIcon from '@mui/icons-material/Close';
 const Chargers = () => {
   const token =sessionStorage.getItem('token');
+  const userData=JSON.parse(sessionStorage.getItem('User'))
   const style = {
     position: "absolute",
     top: "50%",
@@ -57,7 +58,7 @@ const Chargers = () => {
     onboardindDate: "",
     numberOfConnector: "",
     CompanyName:"",
-    cpoId:"64be3bdad27dbc99fe193cdc",
+    cpoId:userData._id,
     ChargerType:"",
     PowerRating:"",
     Connectors:""
@@ -66,7 +67,7 @@ const Chargers = () => {
   const navigate = useNavigate();
   const [rows, setRows] = useState([]);
   // const {userData}=useContext(UserContext)
-  const userData=JSON.parse(sessionStorage.getItem('User'))
+  
   const [initialValues, setInitialValues] = useState(initalValues);
   const [formValues, setFormValues] = useState(initalValues);
   const [selectedChargeId, setSelectedChargeId] = useState();

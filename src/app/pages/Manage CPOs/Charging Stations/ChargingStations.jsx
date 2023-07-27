@@ -30,6 +30,7 @@ const ChargingStations = () => {
     border: "none",
     p: 4,
   };
+  const {userData}=useContext(UserContext);
   const initalValues = {
     StationName: "",
     Latitude: "",
@@ -43,10 +44,10 @@ const ChargingStations = () => {
     accesstype: "",
     opentime: "",
     closetime: "",
-    cpoId:"64be3bdad27dbc99fe193cdc"
+    cpoId:userData._id
   };
   const [update, setupdate] = useState(0);
-  const {userData}=useContext(UserContext);
+
   const [rows,setRows] =useState([])
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);

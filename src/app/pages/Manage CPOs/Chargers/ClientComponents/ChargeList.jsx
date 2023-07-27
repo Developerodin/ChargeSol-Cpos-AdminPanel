@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import { useFormik } from "formik";
 import SearchIcon from "@mui/icons-material/Search";
-import { useState } from "react";
+import { useState ,useContext} from "react";
 import { FriendList } from "./FriendList";
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import axios from "axios";
@@ -29,10 +29,11 @@ export default function ChargeList({setUpdate}) {
  
 
   const [count, setCount] = useState();
+ 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  // const {userData,update,setUpdated}=React.useContext(UserContext)
+  const {userData}=React.useContext(UserContext)
   const initalValues = {
     ChargerName: "",
     ChargerStation: "",
@@ -56,7 +57,7 @@ export default function ChargeList({setUpdate}) {
     onboardindDate: "",
     numberOfConnector: "",
     CompanyName:"",
-    cpoId:"64be3bdad27dbc99fe193cdc",
+    cpoId:userData._id,
     ChargerType:"",
     PowerRating:"",
     Connectors:""

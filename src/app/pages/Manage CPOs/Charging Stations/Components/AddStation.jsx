@@ -13,6 +13,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 export default function AddStation({setUpdate}) {
   const token =sessionStorage.getItem('token');
+  const userData=JSON.parse(sessionStorage.getItem('User'))
   const style = {
     position: "absolute",
     top: "50%",
@@ -44,7 +45,7 @@ export default function AddStation({setUpdate}) {
     accesstype: "",
     opentime: "",
     closetime: "",
-    cpoId:"64be3bdad27dbc99fe193cdc"
+    cpoId:userData._id
   };
 
   const inputs = {
