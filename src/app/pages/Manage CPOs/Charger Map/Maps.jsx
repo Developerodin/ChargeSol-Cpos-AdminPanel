@@ -1,8 +1,13 @@
 // src/components/Map.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import MarkIcon from './IconM.png'
+import axios from 'axios';
+import { BASE_URL } from '../../../Config/BaseUrl';
 const Maps = () => {
+  const token =sessionStorage.getItem('token');
+  const userData=JSON.parse(sessionStorage.getItem('User'))
+  const [rows, setRows] = useState([]);
   const mapStyles = {
     height: '100vh',
     width: '100%',
@@ -26,15 +31,52 @@ const locations = [
     { lat: 26.8901, lng: 75.7957, image: iconUrl },
   ];
 
+  useEffect(()=>{
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/chargers/cpo/${userData._id}`, {
+          headers: { Authorization: `${token}` },
+        });
+        // Assuming the response data is an array of objects with the required properties
+        
+        const data = response.data;
+        const ChargerData=data.data.chargers;
+        console.log("response chargers==>", data);
+        if(data && data.status === 'success'){
+             const formattedData = ChargerData.map((item) => ({
+              lat:item.Latitude,
+              lng:item.Longitude,
+              image: iconUrl
+
+            
+            
+        }));
+  
+        setRows(formattedData);
+        }
+        else{
+          setRows([]);
+        }
+        
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setRows([]);
+      }
+    };
+  
+    // console.log("UserData", userData);
+    fetchData();
+  },[])
+
   return (
     
       <LoadScript googleMapsApiKey="AIzaSyBKPYoMWGdRfZsZlYwwFC00xx0LAr8snyo">
       <GoogleMap
         mapContainerStyle={mapStyles}
-        zoom={13}
+        zoom={2}
         center={defaultCenter}
       >
-        {locations.map((location, index) => (
+        {rows.map((location, index) => (
           <Marker
             key={index}
             position={{ lat: location.lat, lng: location.lng }}
