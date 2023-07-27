@@ -16,21 +16,21 @@ export const UserContextProvider = ({ children }) => {
 
     // Functions
     
-    const GetToken=async()=>{
-        try{
-              const res=await axios.get("http://localhost:8000/api/token");
-              const data=await res.data;
-              console.log(data);
-            //    localStorage.setItem('token',data.token);
+  //   const GetToken=async()=>{
+  //       try{
+  //             const res=await axios.get("http://localhost:8000/api/token");
+  //             const data=await res.data;
+  //             console.log(data);
+  //           //    localStorage.setItem('token',data.token);
             
-               sessionStorage.setItem('token',data.token);
-               setUserToken(data.token);
+  //              sessionStorage.setItem('token',data.token);
+  //              setUserToken(data.token);
                
-        }
-        catch(err){
-         console.log("Error", err)
-        }
-   }
+  //       }
+  //       catch(err){
+  //        console.log("Error", err)
+  //       }
+  //  }
 
     const UserDetailsSet=()=>{
         const storedUser = JSON.parse(sessionStorage.getItem('User'));
@@ -72,7 +72,7 @@ export const UserContextProvider = ({ children }) => {
     
     
     useEffect(()=>{
-        GetToken();
+        // GetToken();
         UserDetailsSet();
     },[update])
 

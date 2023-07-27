@@ -17,7 +17,7 @@ export function login(email: string, password: string) {
   return axios.post(LOGIN_URL, {
     email,
     password,
-  },{ headers: { "Authorization": `${token}` } })
+  })
 }
 
 // Server should return AuthModel

@@ -81,6 +81,7 @@ export function Login() {
           // localStorage.setItem("User",JSON.stringify(userData.data.user));
           sessionStorage.setItem("authValue", "true");
           sessionStorage.setItem('User', JSON.stringify(userData.data.user));
+          sessionStorage.setItem('token',userData.token);
           // expires in 7 days
           
            setLoading(false)
