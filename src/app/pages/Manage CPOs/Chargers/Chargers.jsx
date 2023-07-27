@@ -48,17 +48,18 @@ const Chargers = () => {
     closetime: "",
     OEM: "",
     OCPP_ID: "",
-    FixedCost: "",
+    fixedCost: "",
     demandFee: "",
     ownership: "",
     functional: false,
-    companyname: "",
-    selectPrice: "",
+    ChargerPrice: "",
     onboardindDate: "",
     numberOfConnector: "",
-    searchComapny: "",
-    SelectComapny:"",
-    cpoId:"64be3bdad27dbc99fe193cdc"
+    CompanyName:"",
+    cpoId:"64be3bdad27dbc99fe193cdc",
+    ChargerType:"",
+    PowerRating:"",
+    Connectors:""
     // AddClient:""
   };
   const navigate = useNavigate();
@@ -127,7 +128,6 @@ const Chargers = () => {
     {name:"Address"},
     {name:"Status"},
     {name:"City"},
-    {name:"CPOs"},
     {name:"Charger Type"},
     {name:"Power Rating"},
     {name:"Connectors"},
@@ -170,13 +170,12 @@ useEffect(()=>{
           "Location":<Button  data-bs-toggle="modal" data-bs-target="#exampleModalCenter"  variant='text'>{item.Latitude},{item.Longitude}</Button>,
           "OCPP ID":item.OCPP_ID,
           "Address":<span>{item.street},{item.area},{item.city},{item.Pincode},{item.state}</span>,
-          "Status":"Active",
+          "Status":item.functional ? <Button color='success' variant="contained" >Active</Button> : <Button color='error' variant="contained">Inactive</Button>,
           "City":item.city,
-          "CPOS":"ChargeSol",
           "Charger Type":"DC",
           "Power Rating":"60.00KW",
           "Connectors":"CCS / GBT/ TYPE 2",
-          "Functional":<Switch/>,
+          "Functional":<Switch checked={item.functional}/>,
           // Update:<DriveFileRenameOutlineIcon/>,
         Update: <BorderColorIcon onClick={() => handleUpdateChargerOpen(item._id)} />,
         Delete: <DeleteIcon  onClick={() => handelDeleteCharger(item._id)}/>
@@ -288,7 +287,7 @@ const handleSubmit = async () => {
       >
         <Box sx={style}>
          
-            <div className="container-fluid">
+        <div className="container-fluid">
               <div className="row">
                 <div className="col-12">
                   <h3>List A Charger</h3>
@@ -546,10 +545,10 @@ const handleSubmit = async () => {
                     <div className="col-12">
                       <input
                         type="text"
-                        name="FixedCost"
-                        id="FixedCost"
+                        name="fixedCost"
+                        id="fixedCost"
                         placeholder="FixedCost"
-                        value={formValues.FixedCost}
+                        value={formValues.fixedCost}
                         onChange={handleChange}
                         style={inputs}
                       />
@@ -572,26 +571,98 @@ const handleSubmit = async () => {
                     </div>
                   </div>
                 </div>
+
+
                 <div className="col-md-4">
-                  <div className="row ">
-                    <div className="col-5">
-                      <div className="row">
-                        <div className="col-12 mb-2">Ownership</div>
-                        <div className="col-12">
-                          <input
-                            type="text"
-                            name="ownership"
-                            id="ownership"
-                            onChange={handleChange}
-                            value={formValues.ownership}
-                            placeholder="ownership"
-                            style={inputsL}
-                          />
-                        </div>
-                      </div>
+                  <div className="row">
+                    <div className="col-12 mb-2">Ownership</div>
+                    <div className="col-12">
+                      <input
+                        type="text"
+                        name="ownership"
+                        onChange={handleChange}
+                        value={formValues.ownership}
+                        id="ownership"
+                        placeholder="ownership"
+                        style={inputs}
+                      />
                     </div>
-                    <div className="col-5">
-                      <div className="row">
+                  </div>
+                </div>
+              </div>
+
+
+
+              <div className="row mt-2">
+                <div className="col-md-4">
+                  <div className="row">
+                    <div className="col-12 mb-2">ChargerType</div>
+                    <div className="col-12">
+                      <input
+                        type="text"
+                        name="ChargerType"
+                        id="ChargerType"
+                        placeholder="ChargerType"
+                        value={formValues.ChargerType}
+                        onChange={handleChange}
+                        style={inputs}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-4">
+                  <div className="row">
+                    <div className="col-12 mb-2">PowerRating</div>
+                    <div className="col-12">
+                      <input
+                        type="text"
+                        name="PowerRating"
+                        onChange={handleChange}
+                        value={formValues.PowerRating}
+                        id="PowerRating"
+                        placeholder="Power Rating"
+                        style={inputs}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-4">
+                  <div className="row">
+                    <div className="col-12 mb-2">Connectors</div>
+                    <div className="col-12">
+                      <input
+                        type="text"
+                        name="Connectors"
+                        onChange={handleChange}
+                        value={formValues.Connectors}
+                        id="Connectors"
+                        placeholder="Connectors"
+                        style={inputs}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="row mt-2">
+                <div className="col-md-4">
+                  <div className="row">
+                    <div className="col-12 mb-2">Number Of Connector</div>
+                    <div className="col-12">
+                      <input
+                        type="text"
+                        name="numberOfConnector"
+                        id="numberOfConnector"
+                        placeholder="Number Of Connector"
+                        value={formValues.numberOfConnector}
+                        onChange={handleChange}
+                        style={inputs}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-4">
+                <div className="row">
                         <div className="col-12 mb-2">Functional</div>
                         <div className="col-12">
                           <div class="form-check form-switch">
@@ -600,46 +671,21 @@ const handleSubmit = async () => {
                               type="checkbox"
                               id="flexSwitchCheckChecked"
                               name="functional"
-                              value={formValues.functional}
+                              checked={formValues.functional}
                               onChange={handleChange}
                             />
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
                 </div>
+                
               </div>
+
+
+
+
               <div className="row mt-2">
-                <div className="col-md-4">
-                  <div className="col-12 mt-4">
-                    <h3>Number of Connectors</h3>
-                  </div>
-                  <select
-                    type="text"
-                    name="numberOfConnector"
-                    onChange={handleChange}
-                    value={formValues.numberOfConnector}
-                    id=" numberOfConnector"
-                    placeholder=" Number Of Connector"
-                    style={inputs}
-                  >
-                    <option value="1" selected>
-                      {" "}
-                      Select Number Of Connector
-                    </option>
-                   
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                  </select>
-                  <div className="row">
-                    <div className="col-12">
-                      <FriendList count={formValues.numberOfConnector}/>
-                    </div>
-                  </div>
-                </div>
+                
                 <div className="col-md-7">
                   <div className="col-12 mt-4">
                     <h3>Company </h3>
@@ -652,48 +698,36 @@ const handleSubmit = async () => {
                       >
                         <div className="col-5">
                           <div className="row">
-                            <div className="col-12">
-                              <SearchIcon style={{ color: "grey" }} />
-                              <input
-                                type="text"
-                                name="searchComapny"
-                                id=""
-                                placeholder="Company Name"
-                                style={{ border: "none" }}
-                                onChange={handleChange}
-                              />
-                            </div>
-                            <div className="col-12 mt-5 d-flex    " >
-                            <input className="form-check-input " type="checkbox" value="" id="flexCheckDefault" style={{marginRight:"5px"}}/>
-                              <select
-                              className="ml-2"
-                                type="text"
-                                name="SelectComapny"
-                                id=""
-                                placeholder="Company Name"
-                                style={{ border: "none",minWidth:"40%",background:"#e8e7ec"}}
-                                onChange={handleChange}
-                                value={formValues.SelectComapny}
-                              >
-  <option   selected>select</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                              </select>
-                            </div>
+                           
+                       
+                    <div className="col-12 mb-2">Company Name</div>
+                    <div className="col-12">
+                      <input
+                        type="text"
+                        name="CompanyName"
+                        id="CompanyName"
+                        placeholder="Company Name"
+                        value={formValues.CompanyName}
+                        onChange={handleChange}
+                        style={inputs}
+                      />
+                    </div>
+                  
                           </div>
                         </div>
                         <div className="col-3">
                           <div className="row" >
-                            <div className="col-12">Select Price</div>
+                            <div className="col-12">Price</div>
                             <div className="col-12">
-                              <input type="text" name="SelectPrice" id="" onChange={handleChange}  className="mt-5" style={{maxWidth:"50%"}} />
+                        
+                      <input className="mt-5" type="text" name="ChargerPrice" id="ChargerPrice" value={formValues.ChargerPrice} onChange={handleChange} style={{maxWidth:"50%"}} />
                             </div>
                           </div>
                         </div>
                         <div className="col-4">
                           <div className="row">
-                        <div className="col-12">Select Onboarding Date</div>
-                        <div className="col-12 d-flex justify-content-space-evenly">  <input className="mt-5" type="text" name="SelectPrice" id="" onChange={handleChange} style={{maxWidth:"50%"}} /></div>
+                        <div className="col-12">Onboarding Date</div>
+                        <div className="col-12 d-flex justify-content-space-evenly">  <input className="mt-5" type="text"  name="onboardindDate" id="onboardindDate" value={formValues.onboardindDate} onChange={handleChange} style={{maxWidth:"50%"}} /></div>
                         </div>
                         </div>
                       </div>

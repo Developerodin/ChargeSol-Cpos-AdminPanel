@@ -28,7 +28,7 @@ const locations = [
 
   return (
     
-      <LoadScript googleMapsApiKey="AIzaSyAiaCTk3vZ9KMXCCT3JxAUxTYFZsc_RYHg">
+      <LoadScript googleMapsApiKey="AIzaSyBKPYoMWGdRfZsZlYwwFC00xx0LAr8snyo">
       <GoogleMap
         mapContainerStyle={mapStyles}
         zoom={13}

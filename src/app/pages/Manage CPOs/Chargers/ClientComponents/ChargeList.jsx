@@ -47,17 +47,18 @@ export default function ChargeList({setUpdate}) {
     closetime: "",
     OEM: "",
     OCPP_ID: "",
-    FixedCost: "",
+    fixedCost: "",
     demandFee: "",
     ownership: "",
     functional: false,
-    companyname: "",
-    selectPrice: "",
+    ChargerPrice: "",
     onboardindDate: "",
     numberOfConnector: "",
-    searchComapny: "",
-    SelectComapny:"",
-    cpoId:"64be3bdad27dbc99fe193cdc"
+    CompanyName:"",
+    cpoId:"64be3bdad27dbc99fe193cdc",
+    ChargerType:"",
+    PowerRating:"",
+    Connectors:""
     // AddClient:""
   };
 
@@ -376,10 +377,10 @@ export default function ChargeList({setUpdate}) {
                     <div className="col-12">
                       <input
                         type="text"
-                        name="FixedCost"
-                        id="FixedCost"
+                        name="fixedCost"
+                        id="fixedCost"
                         placeholder="FixedCost"
-                        value={values.FixedCost}
+                        value={values.fixedCost}
                         onChange={handleChange}
                         style={inputs}
                       />
@@ -402,26 +403,98 @@ export default function ChargeList({setUpdate}) {
                     </div>
                   </div>
                 </div>
+
+
                 <div className="col-md-4">
-                  <div className="row ">
-                    <div className="col-5">
-                      <div className="row">
-                        <div className="col-12 mb-2">Ownership</div>
-                        <div className="col-12">
-                          <input
-                            type="text"
-                            name="ownership"
-                            id="ownership"
-                            onChange={handleChange}
-                            value={values.ownership}
-                            placeholder="ownership"
-                            style={inputsL}
-                          />
-                        </div>
-                      </div>
+                  <div className="row">
+                    <div className="col-12 mb-2">Ownership</div>
+                    <div className="col-12">
+                      <input
+                        type="text"
+                        name="ownership"
+                        onChange={handleChange}
+                        value={values.ownership}
+                        id="ownership"
+                        placeholder="ownership"
+                        style={inputs}
+                      />
                     </div>
-                    <div className="col-5">
-                      <div className="row">
+                  </div>
+                </div>
+              </div>
+
+
+
+              <div className="row mt-2">
+                <div className="col-md-4">
+                  <div className="row">
+                    <div className="col-12 mb-2">ChargerType</div>
+                    <div className="col-12">
+                      <input
+                        type="text"
+                        name="ChargerType"
+                        id="ChargerType"
+                        placeholder="ChargerType"
+                        value={values.ChargerType}
+                        onChange={handleChange}
+                        style={inputs}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-4">
+                  <div className="row">
+                    <div className="col-12 mb-2">PowerRating</div>
+                    <div className="col-12">
+                      <input
+                        type="text"
+                        name="PowerRating"
+                        onChange={handleChange}
+                        value={values.PowerRating}
+                        id="PowerRating"
+                        placeholder="Power Rating"
+                        style={inputs}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-4">
+                  <div className="row">
+                    <div className="col-12 mb-2">Connectors</div>
+                    <div className="col-12">
+                      <input
+                        type="text"
+                        name="Connectors"
+                        onChange={handleChange}
+                        value={values.Connectors}
+                        id="Connectors"
+                        placeholder="Connectors"
+                        style={inputs}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="row mt-2">
+                <div className="col-md-4">
+                  <div className="row">
+                    <div className="col-12 mb-2">Number Of Connector</div>
+                    <div className="col-12">
+                      <input
+                        type="text"
+                        name="numberOfConnector"
+                        id="numberOfConnector"
+                        placeholder="Number Of Connector"
+                        value={values.numberOfConnector}
+                        onChange={handleChange}
+                        style={inputs}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-4">
+                <div className="row">
                         <div className="col-12 mb-2">Functional</div>
                         <div className="col-12">
                           <div class="form-check form-switch">
@@ -435,40 +508,15 @@ export default function ChargeList({setUpdate}) {
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
                 </div>
+                
               </div>
+
+
+
+
               <div className="row mt-2">
-                <div className="col-md-4">
-                  <div className="col-12 mt-4">
-                    <h3>Number of Connectors</h3>
-                  </div>
-                  <select
-                    type="text"
-                    name="numberOfConnector"
-                    onChange={handleChange}
-                    value={values.numberOfConnector}
-                    id=" numberOfConnector"
-                    placeholder=" Number Of Connector"
-                    style={inputs}
-                  >
-                    <option value="1" selected>
-                      {" "}
-                      Select Number Of Connector
-                    </option>
-                   
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                  </select>
-                  <div className="row">
-                    <div className="col-12">
-                      <FriendList count={values.numberOfConnector}/>
-                    </div>
-                  </div>
-                </div>
+                
                 <div className="col-md-7">
                   <div className="col-12 mt-4">
                     <h3>Company </h3>
@@ -481,48 +529,36 @@ export default function ChargeList({setUpdate}) {
                       >
                         <div className="col-5">
                           <div className="row">
-                            <div className="col-12">
-                              <SearchIcon style={{ color: "grey" }} />
-                              <input
-                                type="text"
-                                name="searchComapny"
-                                id=""
-                                placeholder="Company Name"
-                                style={{ border: "none" }}
-                                onChange={handleChange}
-                              />
-                            </div>
-                            <div className="col-12 mt-5 d-flex    " >
-                            <input className="form-check-input " type="checkbox" value="" id="flexCheckDefault" style={{marginRight:"5px"}}/>
-                              <select
-                              className="ml-2"
-                                type="text"
-                                name="SelectComapny"
-                                id=""
-                                placeholder="Company Name"
-                                style={{ border: "none",minWidth:"40%",background:"#e8e7ec"}}
-                                onChange={handleChange}
-                                value={values.SelectComapny}
-                              >
-  <option   selected>select</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                              </select>
-                            </div>
+                           
+                       
+                    <div className="col-12 mb-2">Company Name</div>
+                    <div className="col-12">
+                      <input
+                        type="text"
+                        name="CompanyName"
+                        id="CompanyName"
+                        placeholder="Company Name"
+                        value={values.CompanyName}
+                        onChange={handleChange}
+                        style={inputs}
+                      />
+                    </div>
+                  
                           </div>
                         </div>
                         <div className="col-3">
                           <div className="row" >
-                            <div className="col-12">Select Price</div>
+                            <div className="col-12">Price</div>
                             <div className="col-12">
-                              <input type="text" name="SelectPrice" id="" onChange={handleChange}  className="mt-5" style={{maxWidth:"50%"}} />
+                        
+                      <input className="mt-5" type="text" name="ChargerPrice" id="ChargerPrice" value={values.ChargerPrice} onChange={handleChange} style={{maxWidth:"50%"}} />
                             </div>
                           </div>
                         </div>
                         <div className="col-4">
                           <div className="row">
-                        <div className="col-12">Select Onboarding Date</div>
-                        <div className="col-12 d-flex justify-content-space-evenly">  <input className="mt-5" type="text" name="SelectPrice" id="" onChange={handleChange} style={{maxWidth:"50%"}} /></div>
+                        <div className="col-12">Onboarding Date</div>
+                        <div className="col-12 d-flex justify-content-space-evenly">  <input className="mt-5" type="text" name="onboardindDate" id="onboardindDate" onChange={handleChange} style={{maxWidth:"50%"}} /></div>
                         </div>
                         </div>
                       </div>
@@ -532,7 +568,7 @@ export default function ChargeList({setUpdate}) {
               </div>
             </div>
             <div className="row">
-              <div className="col-12 d-flex justify-content-center">
+              <div className="col-12 d-flex justify-content-end">
                 <button type="submit" className=" btn btn-primary mt-4">
                   Submit
                 </button>

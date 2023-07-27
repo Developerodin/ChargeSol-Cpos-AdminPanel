@@ -52,11 +52,11 @@ const ChargersHeader = ({state}) => {
             
             </Box>
 
-            <Box sx={{display:{xs:"none",md:"flex",lg:"flex",xl:"flex"},  width:"20%"}} >
+            {/* <Box sx={{display:{xs:"none",md:"flex",lg:"flex",xl:"flex"},  width:"20%"}} >
 
             <Button sx={{backgroundColor:"#259300","&:hover": { backgroundColor: "#1b6802"}}}   variant="contained" >Active</Button>
             <Button  sx={{backgroundColor:"gray","&:hover": { backgroundColor: "#259300"}}} variant="contained" >InActive</Button>
-            </Box>
+            </Box> */}
             
             </Box>
             
