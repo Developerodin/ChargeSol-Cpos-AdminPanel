@@ -9,7 +9,7 @@ import { useState } from "react";
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import axios from "axios";
 import { BASE_URL } from "../../../../Config/BaseUrl";
-
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function AddStation({setUpdate}) {
   const token =sessionStorage.getItem('token');
@@ -107,7 +107,10 @@ export default function AddStation({setUpdate}) {
             <div className="container-fluid">
               <div className="row">
                 <div className="col-12">
+                <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
                   <h3>List A Station</h3>
+                   <CloseIcon onClick={handleClose}/>
+                  </div>
                   <hr />
                 </div>
                 <div className="col-12 mt-3">

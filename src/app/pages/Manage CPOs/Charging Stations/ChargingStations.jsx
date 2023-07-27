@@ -15,7 +15,7 @@ import { BASE_URL } from '../../../Config/BaseUrl'
 import DeleteIcon from '@mui/icons-material/Delete';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import SearchIcon from "@mui/icons-material/Search";
-
+import CloseIcon from '@mui/icons-material/Close';
 const ChargingStations = () => {
   const token =sessionStorage.getItem('token');
   const style = {
@@ -89,7 +89,7 @@ const ChargingStations = () => {
     {name:"City"},
     {name:"Access Type"},
     {name:"Opening Hours"},
-    {name:"Functional"},
+   
     {name:"Update"},
     {name:"Delete"}
   ]
@@ -131,7 +131,7 @@ const ChargingStations = () => {
             "City":item.city,
             "Access Type":item.accesstype,
             "Opening Hours":<Typography>{item.opentime} {" : "}{item.closetime}</Typography>,
-            "Functional":<Switch/>,
+           
           Update: <BorderColorIcon onClick={() => handleUpdateStationOpen(item._id)} />,
           Delete: <DeleteIcon  onClick={() => handelDeleteStation(item._id)}/>
         }));
@@ -192,6 +192,7 @@ const ChargingStations = () => {
   }
   }
  
+ 
   
   const handleSubmit = async () => {
     console.log("Charger Values ===>", formValues);
@@ -248,7 +249,11 @@ const ChargingStations = () => {
             <div className="container-fluid">
               <div className="row">
                 <div className="col-12">
-                  <h3>List A Station</h3>
+                 
+                  <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                  <h3>Edit A Station</h3>
+                   <CloseIcon onClick={handleClose}/>
+                  </div>
                   <hr />
                 </div>
                 <div className="col-12 mt-3">

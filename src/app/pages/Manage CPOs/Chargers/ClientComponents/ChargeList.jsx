@@ -10,6 +10,7 @@ import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import axios from "axios";
 import { BASE_URL } from "../../../../Config/BaseUrl";
 import UserContext from "../../../../../Context/UserContext";
+import CloseIcon from '@mui/icons-material/Close';
 export default function ChargeList({setUpdate}) {
 
   const token =sessionStorage.getItem('token');
@@ -122,7 +123,11 @@ export default function ChargeList({setUpdate}) {
             <div className="container-fluid">
               <div className="row">
                 <div className="col-12">
+                  <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
                   <h3>List A Charger</h3>
+                   <CloseIcon onClick={handleClose}/>
+                  </div>
+                  
                   <hr />
                 </div>
                 <div className="col-12 mt-3">

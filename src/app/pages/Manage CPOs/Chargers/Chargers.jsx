@@ -19,6 +19,7 @@ import { useFormik } from "formik";
 import Modal from "@mui/material/Modal";
 import SearchIcon from "@mui/icons-material/Search";
 import { FriendList } from './ClientComponents/FriendList'
+import CloseIcon from '@mui/icons-material/Close';
 const Chargers = () => {
   const token =sessionStorage.getItem('token');
   const style = {
@@ -175,7 +176,7 @@ useEffect(()=>{
           "Charger Type":"DC",
           "Power Rating":"60.00KW",
           "Connectors":"CCS / GBT/ TYPE 2",
-          "Functional":<Switch checked={item.functional}/>,
+          "Functional":<Switch checked={item.functional}  onChange={(e)=>handleSwitchChange(e,item._id)} />,
           // Update:<DriveFileRenameOutlineIcon/>,
         Update: <BorderColorIcon onClick={() => handleUpdateChargerOpen(item._id)} />,
         Delete: <DeleteIcon  onClick={() => handelDeleteCharger(item._id)}/>
@@ -234,6 +235,31 @@ const handleUpdateChargerOpen=(id)=>{
   
 }
 
+const handleSwitchChange = async (event,id) => {
+  const checked = event.target.checked;
+  console.log("Check sttaus===>",checked,id)
+  try {
+    await updateFunctionalStatus( checked,id);
+  } catch (err) {
+    console.log("Error updating functional status", err);
+  }
+};
+
+const updateFunctionalStatus=async(checked,id)=>{
+  const values={
+    chargerId:id,
+    functionalStatus:checked
+  }
+  try {
+    const res = await axios.post(`${BASE_URL}/chargers/update-functional`, values, {
+      headers: { "Authorization": `${token}` }
+    });
+    console.log("res charger status updated === ==>", res);
+  } catch (err) {
+    console.log("error in charger adding", err);
+  }
+  setupdate((prev)=>prev+1); 
+}
 const handleSubmit = async () => {
   console.log("Charger Values ===>", formValues);
   try {
@@ -290,7 +316,10 @@ const handleSubmit = async () => {
         <div className="container-fluid">
               <div className="row">
                 <div className="col-12">
-                  <h3>List A Charger</h3>
+                <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                  <h3>Edit A Charger</h3>
+                   <CloseIcon onClick={handleClose}/>
+                  </div>
                   <hr />
                 </div>
                 <div className="col-12 mt-3">
