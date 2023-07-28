@@ -17,15 +17,21 @@ import AddRoadIcon from '@mui/icons-material/AddRoad';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import { useFormik } from 'formik';
+import { BASE_URL } from '../../../../Config/BaseUrl';
+import axios from 'axios';
 
 
 export const UserWalletModal=(props)=>{
+  const token =sessionStorage.getItem('token');
+  const {id,data}=props;
   const [state, setState] = React.useState({
     top: false,
     left: false,
     bottom: false,
     right: false,
   });
+
+  const [userWallet,setUserWallet]=React.useState({});
 
   const toggleDrawer = (anchor, open) => (event) => {
     // if (
@@ -53,6 +59,49 @@ export const UserWalletModal=(props)=>{
     }
   })
 
+  React.useEffect(()=>{
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/customers/getWallet/${id}`, {
+          headers: { Authorization: `${token}` },
+        });
+        // Assuming the response data is an array of objects with the required properties
+        
+        const data = response;
+        const CustomersData=data.data.Customer;
+        console.log("response Wallet==>", data);
+        // if(data && data.status === 'success'){
+        //      const formattedData = CustomersData.map((item) => ({
+        //     "Name":item.name,
+        //     "Email":item.email,
+        //     "Phone":item.phone_number,
+        //     "Charge Duration":"100 hrs",
+        //     "Status":item.status ? <Button color='success' variant="contained" >Active</Button> : <Button color='error' variant="contained">Inactive</Button>,
+        //     "Wallet":<UserWalletModal id={item._id}/>,
+        //     "Vehicles":"tata Ev4",
+        //     "Active":<Switch checked={item.status}  onChange={(e)=>handleSwitchChange(e,item._id)} />,
+        //     "Icon":<AddVehicle/>,
+        //     // "Functional":<Switch checked={item.functional}  onChange={(e)=>handleSwitchChange(e,item._id)} />,
+            
+        //   Update: <BorderColorIcon onClick={() => handleUpdateCustomerOpen(item._id)} />,
+        //   Delete: <DeleteIcon  onClick={() => handelDeleteCustomer(item._id)}/>
+        // }));
+  
+        // setUserWallet(formattedData);
+        // }
+        // else{
+        //   setUserWallet({});
+        // }
+        
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setUserWallet({});
+      }
+    };
+  
+    // console.log("UserData", data);
+    fetchData();
+  },[])
 
 
   const list = (anchor) => (

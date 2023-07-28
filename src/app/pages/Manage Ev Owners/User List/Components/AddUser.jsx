@@ -7,7 +7,12 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 // import { FriendList } from "./FriendList";
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
-export default function AddUser() {
+import UserContext from "../../../../../Context/UserContext";
+import { BASE_URL } from "../../../../Config/BaseUrl";
+import axios from "axios";
+export default function AddUser({setUpdate}) {
+
+  const token =sessionStorage.getItem('token');
   const style = {
     position: "absolute",
     top: "50%",
@@ -24,12 +29,15 @@ export default function AddUser() {
 
   const [count, setCount] = useState();
   const [open, setOpen] = React.useState(false);
+  const {userData}=React.useContext(UserContext)
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const initalValues = {
-    FullName: "",
-    Email: "",
-    PhoneNumber: "",
+    name: "",
+    email: "",
+    phone_number: "",
+    password:"",
+    cpoId:userData._id
    
   };
 
@@ -48,9 +56,21 @@ export default function AddUser() {
 
   const { values, error, handleChange, handleSubmit } = useFormik({
     initialValues: initalValues,
-    onSubmit: (value, { resetForm }) => {
-      console.log(value);
+    onSubmit: async(values, { resetForm }) => {
+      console.log("Charger Values ===>",values);
+      try{
+          const res = await axios.post(`${BASE_URL}/customers/signup`, 
+          values)
+
+          console.log("res cpo add ==>",res)
+      }
+      catch(err){
+         console.log("error in charger adding",err)
+      }
+      
       resetForm();
+      handleClose();
+      setUpdate((prev)=>prev+1);
     },
   });
 
@@ -91,53 +111,19 @@ export default function AddUser() {
 
 
 
-              <div className="row mt-2">
-                {/* <div className="col-md-4">
-                  <div className="row">
-                    <div className="col-12 mb-2">Charger Name</div>
-                    <div className="col-12">
-                      <input
-                        type="text"
-                        name="ChargerName"
-                        id="ChargerName"
-                        placeholder="ChargerName"
-                        value={values.ChargerName}
-                        onChange={handleChange}
-                        style={inputs}
-                      />
-                    </div>
-                  </div>
-                </div> */}
-                <div className="col-md-12 mb-4">
-                  <div className="row">
-                    <div className="col-12 mb-2">Full Name</div>
-                    <div className="col-12">
-                      <input
-                        type="text"
-                        name="FullName"
-                        onChange={handleChange}
-                        value={values.FullName}
-                        id="FullName"
-                        placeholder="Full Name"
-                        style={inputs}
-                      />
-                    </div>
-                  </div>
-                </div>
 
-              </div>
               <div className="row justify-content-around mt-2">
                 <div className="col-md-6">
-                  <div className="row">
-                    <div className="col-12">Email</div>
+                <div className="row">
+                    <div className="col-6 mb-2">Full Name</div>
                     <div className="col-12">
                       <input
-                        type="email"
-                        name="Email"
-                        id="Email"
-                        placeholder="Email"
-                        value={values.Email}
+                        type="text"
+                        name="name"
                         onChange={handleChange}
+                        value={values.name}
+                        id="name"
+                        placeholder="Full Name"
                         style={inputs}
                       />
                     </div>
@@ -148,11 +134,46 @@ export default function AddUser() {
                     <div className="col-12">Phone Number</div>
                     <div className="col-12">
                       <input
-                        type="text"
-                        name="PhoneNumber"
-                        id="PhoneNumber"
+                        type="number"
+                        name="phone_number"
+                        id="phone_number"
                         placeholder="PhoneNumber"
-                        value={values.PhoneNumber}
+                        value={values.phone_number}
+                        onChange={handleChange}
+                        style={inputs}
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+              <div className="row justify-content-around mt-7">
+                <div className="col-md-6">
+                  <div className="row">
+                    <div className="col-12">Email</div>
+                    <div className="col-12">
+                      <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        placeholder="Email"
+                        value={values.email}
+                        onChange={handleChange}
+                        style={inputs}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="row">
+                    <div className="col-12">Password</div>
+                    <div className="col-12">
+                      <input
+                        type="text"
+                        name="password"
+                        id="password"
+                        placeholder="Password"
+                        value={values.password}
                         onChange={handleChange}
                         style={inputs}
                       />
@@ -165,7 +186,7 @@ export default function AddUser() {
 
               
             </div>
-            <div className="row">
+            <div className="row mt-5">
               <div className="col-12 d-flex justify-content-center">
                 <button type="submit" className=" btn btn-primary mt-4">
                   Submit

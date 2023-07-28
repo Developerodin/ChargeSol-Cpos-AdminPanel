@@ -131,38 +131,34 @@ const SidebarMenuMain = () => {
           <div className='menu-content'>
             <span className='menu-heading fw-bold  fs-7'>Manage EV Owners</span>
           </div>
-               </div>
+               </div> */}
   
-               {
-            userPermisson.EVOwnersOverView && (
+              {
               <SidebarMenuItem
               to='/evowners/overview/'
               icon='/media/icons/duotune/abstract/abs042.svg'
-              title='Overview'
+              title='Users Overview'
               fontIcon='bi-layers'
               
             />
           
-            )
-          }
-  
-  {
-            userPermisson.UserList && (
+              }
+          
+   {
               <SidebarMenuItem
             to='/evowners/userlist/'
             icon='/media/icons/duotune/communication/com013.svg'
-            title='UserList'
+            title='Users List'
             fontIcon='bi-layers'
            
           />
           
-            )
-          }
+   }
+          
            
   
   
            {
-            userPermisson.Complains && (
               <SidebarMenuItem
               to='evowners/complains/'
               icon='/media/icons/duotune/abstract/abs026.svg'
@@ -171,8 +167,8 @@ const SidebarMenuMain = () => {
              
             />
           
-            )
-          } */}
+           }
+          
   
   
   

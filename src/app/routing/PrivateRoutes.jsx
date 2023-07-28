@@ -391,7 +391,7 @@ const PrivateRoutes = () => {
 
 
 {
-          userPermisson.EVOwnersOverView && (
+          
             <Route
             path='evowners/overview/*'
             element={
@@ -401,7 +401,7 @@ const PrivateRoutes = () => {
             }
           />
         
-          )
+          
         }
 
 
@@ -411,7 +411,7 @@ const PrivateRoutes = () => {
 
 
 {
-          userPermisson.UserList && (
+          
             <Route
             path='evowners/userlist/*'
             element={
@@ -421,7 +421,7 @@ const PrivateRoutes = () => {
             }
           />
         
-          )
+          
         }
 
 
@@ -431,7 +431,7 @@ const PrivateRoutes = () => {
 
 
 {
-          userPermisson.Complains && (
+          
             <Route
             path='evowners/complains/*'
             element={
@@ -441,7 +441,7 @@ const PrivateRoutes = () => {
             }
           />
         
-          )
+          
         }
 
 
