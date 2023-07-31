@@ -61,6 +61,7 @@ const UserList = () => {
     Description:""
 
   }
+  const [userWalletHistory,setUserWalletHistory]=useState([]);
   const [userWalletValues,setUserWalletValues]=useState(initialValuesWallet);
   const [state, setState] = React.useState({
     top: false,
@@ -159,10 +160,29 @@ const UserList = () => {
   },[update])
 
   const handelWalletClick=(id,data)=>{
-    fetchUserWalletData(id)
+    fetchUserWalletData(id);
+    handelWalletHistory(id)
     setUserWalletUserData(data)
     setState({ ...state, 'right': true });
     
+  }
+
+  const handelWalletHistory=async(id)=>{
+    try {
+      
+      const response = await axios.get(`${BASE_URL}/customers/gethistory/${id}`, {
+        headers: { Authorization: `${token}` },
+      });
+      // Assuming the response data is an array of objects with the required properties
+      
+      const data = response.data.data;
+      console.log("response history==>", data);
+      setUserWalletHistory(data);
+      
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setUserWalletHistory([]);
+    }
   }
 
   const handelWalletClose = (id,data)=>{
@@ -171,6 +191,7 @@ const UserList = () => {
 
   }
 
+  
   const fetchUserWalletData = async (id) => {
     try {
       const response = await axios.get(`${BASE_URL}/customers/getWallet/${id}`, {
@@ -211,6 +232,10 @@ const UserList = () => {
       const data = response;
       const CustomersWalletData=data.data;
       console.log("response Wallet==>", data);
+     
+      fetchUserWalletData(id);
+      handelWalletHistory(id)
+      setUserWalletValues(initialValuesWallet)
       
       
     } catch (error) {
@@ -235,7 +260,10 @@ const UserList = () => {
       const data = response;
       const CustomersWalletData=data.data;
       console.log("response Wallet==>", data);
-      
+     
+      fetchUserWalletData(id);
+      handelWalletHistory(id)
+      setUserWalletValues(initialValuesWallet)
       
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -302,27 +330,26 @@ const UserList = () => {
             </Box>
             </Box>
 
-            <Box sx={{display:"flex",justifyContent:"space-between",marginTop:"15px",padding:"10px"}}>
+            {
+              userWalletHistory && userWalletHistory.map((el)=>{
+                return (
+                  <Box> 
+                      <Box sx={{display:"flex",justifyContent:"space-between",marginTop:"15px",padding:"10px"}}>
              <Box>
              <Typography sx={{color:"gray"}}variant="subtitle2" component="h2">QQ</Typography>
-             <Typography sx={{color:"gray",fontWeight:"bold"}}variant="subtitle1" component="h2">Debited by Gaurav Pandey</Typography>
+             <Typography sx={{color:"gray",fontWeight:"bold"}}variant="subtitle1" component="h2">{el.type} by {userWalletUserData.name}</Typography>
              <Typography sx={{color:"gray"}}variant="subtitle2" component="h2">Fri feb 17 2023</Typography>
              </Box>
              <Box>
-             <Typography sx={{color:"gray"}}variant="subtitle1" component="h2"><CurrencyRupeeIcon sx={{fontSize:"small",color: "red" }} />190</Typography>
+             <Typography sx={{color:"gray"}}variant="subtitle1" component="h2"><CurrencyRupeeIcon sx={{fontSize:"small",color: `${el.type === "credit" ? "green" : "red"}` }} />{el.amount}</Typography>
              </Box>
-            </Box>
+                     </Box>
+                  </Box>
+                )
+              })
+            }
 
-            <Box sx={{display:"flex",justifyContent:"space-between",marginTop:"15px",padding:"10px"}}>
-             <Box>
-             <Typography sx={{color:"gray"}}variant="subtitle2" component="h2">QA</Typography>
-             <Typography sx={{color:"gray",fontWeight:"bold"}}variant="subtitle1" component="h2">Added by Gaurav Pandey</Typography>
-             <Typography sx={{color:"gray"}}variant="subtitle2" component="h2">Fri feb 17 2023</Typography>
-             </Box>
-             <Box>
-             <Typography sx={{color:"gray"}}variant="subtitle1" component="h2"><CurrencyRupeeIcon sx={{fontSize:"small",color: "green" }}  />100</Typography>
-             </Box>
-            </Box>
+            
 
         </Box>
 
