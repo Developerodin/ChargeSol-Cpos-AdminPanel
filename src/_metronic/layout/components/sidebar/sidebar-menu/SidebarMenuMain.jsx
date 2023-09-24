@@ -133,7 +133,7 @@ const SidebarMenuMain = () => {
           </div>
                </div> */}
   
-              {
+              {/* {
               <SidebarMenuItem
               to='/evowners/overview/'
               icon='/media/icons/duotune/abstract/abs042.svg'
@@ -142,7 +142,7 @@ const SidebarMenuMain = () => {
               
             />
           
-              }
+              } */}
           
    {
               <SidebarMenuItem
